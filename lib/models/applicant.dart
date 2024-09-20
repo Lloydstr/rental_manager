@@ -5,6 +5,10 @@ class Applicant {
   final String phone;
   final double creditScore;
   final double income;
+  final String propertyId;
+  final ApplicationStatus applicationStatus;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
   Applicant({
     required this.id,
@@ -13,5 +17,11 @@ class Applicant {
     required this.phone,
     required this.creditScore,
     required this.income,
+    required this.propertyId,
+    this.applicationStatus = ApplicationStatus.pending,
+    required this.createdAt,
+    required this.updatedAt,
   });
 }
+
+enum ApplicationStatus { pending, approved, rejected }

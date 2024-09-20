@@ -5,13 +5,29 @@ class PropertiesPage extends StatefulWidget {
   const PropertiesPage({super.key});
 
   @override
-  _PropertiesPageState createState() => _PropertiesPageState();
+  State<PropertiesPage> createState() => _PropertiesPageState();
 }
 
 class _PropertiesPageState extends State<PropertiesPage> {
   final List<Property> _properties = [
-    Property(id: '1', address: '123 Main St', bedrooms: 2, bathrooms: 1, rent: 1000),
-    Property(id: '2', address: '456 Elm St', bedrooms: 3, bathrooms: 2, rent: 1500),
+    Property(
+      id: '1',
+      address: '123 Main St',
+      bedrooms: 2,
+      bathrooms: 1,
+      rent: 1000,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    ),
+    Property(
+      id: '2',
+      address: '456 Elm St',
+      bedrooms: 3,
+      bathrooms: 2,
+      rent: 1500,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    ),
   ];
 
   @override

@@ -5,13 +5,33 @@ class ApplicantsPage extends StatefulWidget {
   const ApplicantsPage({super.key});
 
   @override
-  _ApplicantsPageState createState() => _ApplicantsPageState();
+  State<ApplicantsPage> createState() => _ApplicantsPageState();
 }
 
 class _ApplicantsPageState extends State<ApplicantsPage> {
   final List<Applicant> _applicants = [
-    Applicant(id: '1', name: 'John Doe', email: 'john@example.com', phone: '123-456-7890', creditScore: 720, income: 50000),
-    Applicant(id: '2', name: 'Jane Smith', email: 'jane@example.com', phone: '987-654-3210', creditScore: 680, income: 45000),
+    Applicant(
+      id: '1',
+      name: 'John Doe',
+      email: 'john@example.com',
+      phone: '123-456-7890',
+      creditScore: 720,
+      income: 50000,
+      propertyId: 'property1',
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    ),
+    Applicant(
+      id: '2',
+      name: 'Jane Smith',
+      email: 'jane@example.com',
+      phone: '987-654-3210',
+      creditScore: 680,
+      income: 45000,
+      propertyId: 'property2',
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+    ),
   ];
 
   @override
