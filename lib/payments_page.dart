@@ -1,58 +1,94 @@
 import 'package:flutter/material.dart';
 import 'models/payment.dart';
 
-class PaymentsPage extends StatefulWidget {
+class PaymentsPage extends StatelessWidget {
   const PaymentsPage({super.key});
 
   @override
-  State<PaymentsPage> createState() => _PaymentsPageState();
+  Widget build(BuildContext context) {
+    // Dummy data for payments
+    final List<Payment> payments = [
+      Payment(
+        id: '1',
+        propertyId: '1',
+        tenantId: '1',
+        amount: 1000,
+        date: DateTime.now(),
+        status: PaymentStatus.completed,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(),
+      ),
+      // Add more payments...
+    ];
+
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            floating: true,
+            title: const Text('Payments'),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.filter_list),
+                onPressed: () {
+                  // TODO: Implement payment filter functionality
+                },
+              ),
+            ],
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.all(16),
+            sliver: SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) {
+                  final payment = payments[index];
+                  return PaymentCard(payment: payment);
+                },
+                childCount: payments.length,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
-class _PaymentsPageState extends State<PaymentsPage> {
-  final List<Payment> _payments = [
-    Payment(
-      id: '1',
-      propertyId: '1',
-      tenantId: 'tenant1',
-      amount: 1000,
-      date: DateTime.now(),
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
-    ),
-    Payment(
-      id: '2',
-      propertyId: '2',
-      tenantId: 'tenant2',
-      amount: 1500,
-      date: DateTime.now().subtract(const Duration(days: 7)),
-      createdAt: DateTime.now().subtract(const Duration(days: 7)),
-      updatedAt: DateTime.now().subtract(const Duration(days: 7)),
-    ),
-  ];
+class PaymentCard extends StatelessWidget {
+  final Payment payment;
+
+  const PaymentCard({super.key, required this.payment});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Payments')),
-      body: ListView.builder(
-        itemCount: _payments.length,
-        itemBuilder: (context, index) {
-          final payment = _payments[index];
-          return ListTile(
-            title: Text('Tenant ID: ${payment.tenantId}'),
-            subtitle: Text('Property ID: ${payment.propertyId}'),
-            trailing: Text('\$${payment.amount.toStringAsFixed(2)}'),
-            onTap: () {
-              // TODO: Implement payment details page
-            },
-          );
-        },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // TODO: Implement add payment functionality
-        },
-        child: const Icon(Icons.add),
+    return Card(
+      elevation: 2,
+      margin: const EdgeInsets.only(bottom: 16),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+      child: ListTile(
+        contentPadding: const EdgeInsets.all(16),
+        leading: CircleAvatar(
+          backgroundColor: payment.status == PaymentStatus.completed ? Colors.green : Colors.orange,
+          child: Icon(
+            payment.status == PaymentStatus.completed ? Icons.check : Icons.pending,
+            color: Colors.white,
+          ),
+        ),
+        title: Text(
+          '\$${payment.amount.toStringAsFixed(2)}',
+          style: const TextStyle(fontWeight: FontWeight.bold),
+        ),
+        subtitle: Text(
+          'Date: ${payment.date.toString().split(' ')[0]}',
+          style: TextStyle(color: Colors.grey[600]),
+        ),
+        trailing: Text(
+          payment.status.toString().split('.').last,
+          style: TextStyle(
+            color: payment.status == PaymentStatus.completed ? Colors.green : Colors.orange,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
     );
   }

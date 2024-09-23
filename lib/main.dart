@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'landing_page.dart';
+import 'properties_page.dart';
+import 'payments_page.dart';
+import 'applicants_page.dart';
 
 void main() {
   runApp(const RentManagerApp());
@@ -31,10 +34,10 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   int _selectedIndex = 0;
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    PropertiesPage(),
-    PaymentsPage(),
-    ApplicantsPage(),
+  final List<Widget> _widgetOptions = <Widget>[
+    const PropertiesPage(),
+    const PaymentsPage(),
+    const ApplicantsPage(),
   ];
 
   void _onItemTapped(int index) {
@@ -48,10 +51,9 @@ class _DashboardPageState extends State<DashboardPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Rent Manager'),
+        backgroundColor: Colors.blue,
       ),
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
+      body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -68,36 +70,9 @@ class _DashboardPageState extends State<DashboardPage> {
           ),
         ],
         currentIndex: _selectedIndex,
+        selectedItemColor: Colors.blue,
         onTap: _onItemTapped,
       ),
     );
-  }
-}
-
-// Placeholder classes for the main features
-class PropertiesPage extends StatelessWidget {
-  const PropertiesPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Properties Page'));
-  }
-}
-
-class PaymentsPage extends StatelessWidget {
-  const PaymentsPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Payments Page'));
-  }
-}
-
-class ApplicantsPage extends StatelessWidget {
-  const ApplicantsPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Applicants Page'));
   }
 }
